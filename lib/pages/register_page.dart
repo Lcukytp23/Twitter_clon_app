@@ -1,5 +1,6 @@
 import 'package:aplicaccion_2/components/my_loading_circle.dart';
 import 'package:aplicaccion_2/services/auth/auth_service.dart';
+import 'package:aplicaccion_2/services/database/database_service.dart';
 import 'package:flutter/material.dart';
 
 import '../components/my_button.dart';
@@ -18,6 +19,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
 
   final _auth = AuthService();
+  final _db = DatabaseService();
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emialController = TextEditingController();
@@ -29,9 +31,15 @@ class _RegisterPageState extends State<RegisterPage> {
       showLoadingCircle(context);
 
       try{
-        await _auth.registerEmialPassword(emialController.text, pwController.text);
+        await _auth.registerEmialPassword(
+          emialController.text, 
+          pwController.text);
 
         if (mounted) hideLoadingCircle(context);
+
+        await _db.saveUserInfoInFirebase(
+          name: nameController.text, 
+          email: emialController.text,);
       }
       catch (e){
         if (mounted) hideLoadingCircle(context);

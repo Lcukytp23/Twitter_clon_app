@@ -1,6 +1,7 @@
 
 import 'package:aplicaccion_2/firebase_options.dart';
 import 'package:aplicaccion_2/services/auth/auth_gate.dart';
+import 'package:aplicaccion_2/services/database/database_provider.dart';
 import 'package:aplicaccion_2/themes/theme_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,13 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      child: const MyApp(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+
+        ChangeNotifierProvider(create: (context) => DatabaseProvider()),
+    ],
+    child: const MyApp(),
     ),
   );
 }
