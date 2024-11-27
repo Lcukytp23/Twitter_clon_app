@@ -1,10 +1,11 @@
 import 'package:aplicaccion_2/components/my_drawer.dart';
 import 'package:aplicaccion_2/components/my_input_alert_box.dart';
 import 'package:aplicaccion_2/components/my_post_title.dart';
-import 'package:aplicaccion_2/models/post.dart';
+import 'package:aplicaccion_2/helper/navigate_pages.dart';
 import 'package:aplicaccion_2/services/database/database_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/post.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -76,7 +77,11 @@ class _HomePageState extends State<HomePage> {
             itemBuilder: (context, index) {
               final post = posts[index];
 
-              return MyPostTitle(post: post);
+              return MyPostTitle(
+                post: post,
+                onUserTap: () => goUserPage(context, post.uid),
+                onPostTap: () => goPostPage(context, post),
+              );
             },
           );
   }
