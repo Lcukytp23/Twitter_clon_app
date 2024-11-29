@@ -1,4 +1,5 @@
 import 'package:aplicaccion_2/components/my_input_alert_box.dart';
+import 'package:aplicaccion_2/helper/time_formatter.dart';
 import 'package:aplicaccion_2/models/post.dart';
 import 'package:aplicaccion_2/services/auth/auth_service.dart';
 import 'package:aplicaccion_2/services/database/database_provider.dart';
@@ -278,7 +279,13 @@ class _MyPostTitleState extends State<MyPostTitle> {
                           color: Theme.of(context).colorScheme.primary),
                     ),
                   ],
-                )
+                ),
+                const Spacer(),
+                Text(
+                  formatTimestamp(widget.post.timestamp),
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                ),
               ],
             ),
           ],
